@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Flickr Battle</title>
+
+<link type="text/css" href="css/style.css" rel="stylesheet">  
+<link type="text/css" href="css/jquery-ui-1.10.3.custom.css" rel="stylesheet">
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+<script type="text/javascript" src="js/flickrapp.js"></script>
+
+<script type="text/javascript">
+
+	//load Google Chart API
+	google.load("visualization", "1", {packages:["corechart"]});
+  
+	//define button click process
+	$(document).ready(function (){
+		$('#goButton').click(function (){
+			workingNotice();
+			setTimeout(apiCall, 100);
+			setTimeout(drawChart, 200);
+		});
+		//load random selection from category array
+    var length = 0;
+    for (var prop in categories) {
+      length++;
+    }
+		var randomNumber = Math.floor(Math.random()*length);
+    console.dir(categories);
+    console.dir("Length is: " + length);
+    console.dir("Random number from length is: " + randomNumber);
+    document.getElementById("category").innerHTML="The category is: " + categories[randomNumber].Name;
+    //roundCategory = categories[randomNumber].Name;
+	});	
+</script>
+
+  
+</head>
+<body>
+	<div class="container group">
+		<div class="header group">
+			<img src="img/logo.png" alt="A picture's worth 1000 points!"></img>
+		</div>
+		<div class="content group">
+			<p id="rules">
+				Pictures say it best, but who says it most? Each team chooses a search term that matches the randomly selected category, and is awarded 1,000 points for every photo posted to Flickr with that Tag. Most points wins!
+			</p>
+			<div id="teams" class="group">
+				<div id="team1Div" class="team group">
+					Team 1: 
+					<br><input id="searchTag1" type="text" name="team1">
+					<br><b><label for="team1" id="team1Points" class="teamPoints">0</label></b> points
+				</div>
+				<div id="team2Div" class="team group">
+					Team 2: 
+					<br><input id="searchTag2" type="text" name="team2">
+					<br><b><label for="team2" id="team2Points" class="teamPoints">0</label></b> points
+				</div>
+				<button id="goButton">Go!</button>
+			</div>
+			<h1 id="category"></h1>
+		</div>
+		<div id="titleDiv" class="group">
+			<h1 id="title" class="group"></h1>
+		</div>
+		<div id="chart_div" class="group"></div>
+	</div>
+</body>
+</html>
